@@ -19,29 +19,28 @@
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	<bean id="transactionManager" class="org.springframework.orm.jdo.JdoTransactionManager"
-		p:persistenceManagerFactory-ref="persistenceManagerFactoryProxy" />
+		p:persistenceManagerFactory-ref="localPersistenceManagerFactoryBean" />
 
-	<bean id="persistenceManagerFactoryProxy"
-		class="org.springframework.orm.jdo.TransactionAwarePersistenceManagerFactoryProxy">
-		<property name="targetPersistenceManagerFactory">
-			<bean
-				class="org.springframework.orm.jdo.LocalPersistenceManagerFactoryBean">
-				<property name="jdoPropertyMap">
-					<props>
-						<prop key="javax.jdo.PersistenceManagerFactoryClass">org.datanucleus.store.appengine.jdo.DatastoreJDOPersistenceManagerFactory
-						</prop>
-						<prop key="javax.jdo.option.ConnectionURL">appengine</prop>
-						<prop key="javax.jdo.option.NontransactionalRead">true</prop>
-						<prop key="javax.jdo.option.NontransactionalWrite">false</prop>
-						<prop key="javax.jdo.option.RetainValues">false</prop>
-						<prop key="javax.jdo.option.DetachAllOnCommit">true</prop>
-						<prop key="javax.jdo.option.Multithreaded">true</prop>
-						<prop key="datanucleus.appengine.ignorableMetaDataBehavior">NONE</prop>
-					</props>
-				</property>
-			</bean>
+	<bean id="transactionAwarePersistenceManagerFactoryProxy"
+		class="org.springframework.orm.jdo.TransactionAwarePersistenceManagerFactoryProxy" 
+		p:targetPersistenceManagerFactory-ref="localPersistenceManagerFactoryBean"
+		p:allowCreate="false" />
+
+	<bean id="localPersistenceManagerFactoryBean"
+		class="org.springframework.orm.jdo.LocalPersistenceManagerFactoryBean">
+		<property name="jdoPropertyMap">
+			<props>
+				<prop key="javax.jdo.PersistenceManagerFactoryClass">org.datanucleus.store.appengine.jdo.DatastoreJDOPersistenceManagerFactory
+				</prop>
+				<prop key="javax.jdo.option.ConnectionURL">appengine</prop>
+				<prop key="javax.jdo.option.NontransactionalRead">true</prop>
+				<prop key="javax.jdo.option.NontransactionalWrite">false</prop>
+				<prop key="javax.jdo.option.RetainValues">false</prop>
+				<prop key="javax.jdo.option.DetachAllOnCommit">true</prop>
+				<prop key="javax.jdo.option.Multithreaded">true</prop>
+				<prop key="datanucleus.appengine.ignorableMetaDataBehavior">NONE</prop>
+			</props>
 		</property>
-		<property name="allowCreate" value="false" />
 	</bean>
 	
 	<bean id="userService" class="com.google.appengine.api.users.UserServiceFactory" factory-method="getUserService" />
