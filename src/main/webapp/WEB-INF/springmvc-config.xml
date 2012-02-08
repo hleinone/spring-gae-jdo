@@ -1,16 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
-			http://www.springframework.org/schema/beans/spring-beans.xsd
-			http://www.springframework.org/schema/context 
-			http://www.springframework.org/schema/context/spring-context.xsd
-			http://www.springframework.org/schema/mvc
-			http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
-
-	<!-- Annotations -->
-	<mvc:annotation-driven />
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context-3.1.xsd
+						http://www.springframework.org/schema/mvc
+						http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
 
 	<context:component-scan base-package="guestbook"
 		use-default-filters="false">
@@ -18,7 +16,20 @@
 			type="annotation" />
 	</context:component-scan>
 
-	<mvc:resources mapping="/**" location="/resources/" />
+	<!-- Configures the @Controller programming model -->
+	<mvc:annotation-driven>
+		<mvc:argument-resolvers>
+			<bean class="guestbook.UserWebArgumentResolver" autowire="constructor" />
+		</mvc:argument-resolvers>
+	</mvc:annotation-driven>
+
+	<!-- Allows for mapping the DispatcherServlet to "/" by forwarding static 
+		resource requests to the container's default Servlet -->
+	<mvc:default-servlet-handler />
+
+	<mvc:interceptors>
+		<ref bean="userServiceHandlerInterceptor" />
+	</mvc:interceptors>
 
 	<!-- Template -->
 	<bean id="viewResolver"

@@ -7,8 +7,10 @@ import org.springframework.orm.jdo.TransactionAwarePersistenceManagerFactoryProx
 
 public abstract class AbstractJdoDao {
 	private final TransactionAwarePersistenceManagerFactoryProxy pmf;
+
 	@Autowired
-	public AbstractJdoDao(final TransactionAwarePersistenceManagerFactoryProxy pmf) {
+	public AbstractJdoDao(
+			final TransactionAwarePersistenceManagerFactoryProxy pmf) {
 		this.pmf = pmf;
 	}
 
