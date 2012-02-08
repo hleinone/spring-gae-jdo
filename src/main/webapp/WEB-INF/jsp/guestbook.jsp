@@ -32,7 +32,7 @@
 			<p><b><c:out value="${g.author.nickname}" /></b> wrote:</p>
 		</c:if>
 		<blockquote>
-		<c:out value="${g.content}" />
+			<c:out value="${g.content}" />
 		</blockquote>
 	</c:forEach>
 </c:if>

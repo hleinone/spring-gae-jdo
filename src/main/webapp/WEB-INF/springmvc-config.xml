@@ -12,7 +12,12 @@
 	<!-- Annotations -->
 	<mvc:annotation-driven />
 
-	<context:component-scan base-package="guestbook" />
+	<context:component-scan base-package="guestbook"
+		use-default-filters="false">
+		<context:include-filter expression="org.springframework.stereotype.Controller"
+			type="annotation" />
+	</context:component-scan>
+
 	<mvc:resources mapping="/**" location="/resources/" />
 
 	<!-- Template -->
