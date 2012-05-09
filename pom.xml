@@ -564,7 +564,7 @@ warSrcDirIsOutput=true]]>
 	<properties>
 		<maven.executable>mvn</maven.executable>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<gae.version>1.6.1</gae.version>
+		<gae.version>1.6.4</gae.version>
 		<spring.version>3.1.0.RELEASE</spring.version>
 		<datanucleus.version>1.1.5</datanucleus.version>
 		<datanucleus-appengine.version>1.0.10</datanucleus-appengine.version>
