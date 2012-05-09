@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 						http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
@@ -14,9 +12,10 @@
 						http://www.springframework.org/schema/util 
 						http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 
-    <context:component-scan base-package="guestbook">
-        <context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
-    </context:component-scan>
+	<context:component-scan base-package="guestbook">
+		<context:exclude-filter expression="org.springframework.stereotype.Controller"
+			type="annotation" />
+	</context:component-scan>
 
 	<bean id="autoproxy"
 		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" />
@@ -28,7 +27,7 @@
 		p:persistenceManagerFactory-ref="localPersistenceManagerFactoryBean" />
 
 	<bean id="transactionAwarePersistenceManagerFactoryProxy"
-		class="org.springframework.orm.jdo.TransactionAwarePersistenceManagerFactoryProxy" 
+		class="org.springframework.orm.jdo.GAETransactionAwarePersistenceManagerFactoryProxy"
 		p:targetPersistenceManagerFactory-ref="localPersistenceManagerFactoryBean"
 		p:allowCreate="false" />
 
@@ -48,6 +47,7 @@
 			</props>
 		</property>
 	</bean>
-	
-	<bean id="userService" class="com.google.appengine.api.users.UserServiceFactory" factory-method="getUserService" />
+
+	<bean id="userService" class="com.google.appengine.api.users.UserServiceFactory"
+		factory-method="getUserService" />
 </beans>
